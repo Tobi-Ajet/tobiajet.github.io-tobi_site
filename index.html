@@ -2,114 +2,363 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tobi Ajetomobi | Cloud & Platform Engineer</title>
-  <meta name="description" content="Tobi Ajetomobi - Cloud & Platform Engineer | DevOps | Kubernetes | AWS | Terraform" />
-  <meta property="og:title" content="Tobi Ajetomobi - Cloud & Platform Engineer" />
-  <meta property="og:description" content="Explore my DevOps projects and engineering portfolio." />
-  <link rel="icon" href="images/favicon.png" />
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <title>tobi@terminal:~$ Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
-</head>
-
-<body>
-  <!-- 🌙 Theme Toggle -->
-  <button id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
-
-  <!-- 🌟 Header -->
-  <div class="top-container">
-    <h1>Hi, I'm <span class="highlight">Tobi</span></h1>
-    <h2>> Cloud & Platform Engineer</h2>
-  </div>
-
-  <!-- 👋 About -->
-  <div class="middle-container">
-    <div class="profile">
-      <img src="images/tobi.png" alt="Tobi" width="120px" />
-      <h2>Welcome</h2>
-      <p class="intro">
-        I'm a Cloud & Platform Engineer focused on automation, reliability, and scalable infrastructure.
-        I specialize in Kubernetes, CI/CD pipelines, and cloud-native DevOps tooling.
-      </p>
-    </div>
-
-    <hr />
-
-    <!-- 🧠 Skills -->
-    <div class="skills">
-      <h2><span class="prompt">$</span> Tech Stack</h2>
-      <p class="tech-list">
-        Kubernetes, Docker, Jenkins, Terraform, Ansible, AWS, Python, Bash, Prometheus, Grafana, PostgreSQL, MySQL, Git, CI/CD, Linux.
-      </p>
-    </div>
-
-    <hr />
-
-    <!-- 🚀 Featured Project -->
-    <div class="featured-project">
-      <h2><span class="prompt">$</span> Featured Project</h2>
-      <a href="https://github.com/Tobi-Ajet/Website-Kubernetes-Operator" target="_blank">
-        <img class="proj-img" src="images/website-operator.png" alt="Website Operator" width="400px" />
-      </a>
-      <p>
-        <strong>Website Kubernetes Operator:</strong>  
-        A Go-based Kubernetes Operator that automates website deployment using NGINX and Custom Resources.
-      </p>
-      <a class="btn" href="https://github.com/Tobi-Ajet/Website-Kubernetes-Operator" target="_blank">View on GitHub</a>
-    </div>
-
-    <hr />
-
-    <!-- 🧩 Other Projects -->
-    <div class="projects">
-      <h2><span class="prompt">$</span> Other Projects</h2>
-      <div class="project-gallery">
-        <a href="https://github.com/Tobiajet/InMoovIt" target="_blank">
-          <img class="proj-img" src="images/inmoov.png" alt="InMoovIt" />
-        </a>
-        <a href="https://tobiajet.github.io/HTML-Form-with-JSON/" target="_blank">
-          <img class="proj-img" src="images/JSForm.png" alt="JS Form" />
-        </a>
-        <a href="https://tobiajet.github.io/Tindog/" target="_blank">
-          <img class="proj-img" src="images/Tindog.png" alt="Tindog" />
-        </a>
-      </div>
-    </div>
-
-    <hr />
-
-    <!-- 📫 Contact -->
-    <div class="contact-me">
-      <h2><span class="prompt">$</span> Get In Touch</h2>
-      <p class="contact-message">Want to collaborate or talk DevOps? Let’s connect!</p>
-      <a class="btn" href="mailto:tobiajetomobi@gmail.com">Contact Me</a>
-    </div>
-  </div>
-
-  <!-- 🌍 Footer -->
-  <div class="bottom-container">
-    <a class="footer-link" href="https://www.linkedin.com/in/tobiajetomobi/" target="_blank"><i class="fab fa-linkedin"></i></a>
-    <a class="footer-link" href="https://github.com/Tobi-Ajet/" target="_blank"><i class="fab fa-github"></i></a>
-    <a class="footer-link" href="mailto:tobiajetomobi@gmail.com"><i class="fas fa-envelope"></i></a>
-    <p class="copyright">© 2020 Tobi Ajetomobi.</p>
-  </div>
-
-  <!-- 🌗 Dark Mode Script -->
-  <script>
-    const toggle = document.getElementById("theme-toggle");
-    const body = document.body;
-    if (localStorage.getItem("theme") === "light") {
-      body.classList.add("light-mode");
-      toggle.textContent = "🌙";
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    toggle.addEventListener("click", () => {
-      body.classList.toggle("light-mode");
-      const isLight = body.classList.contains("light-mode");
-      toggle.textContent = isLight ? "🌙" : "🌞";
-      localStorage.setItem("theme", isLight ? "light" : "dark");
+
+    body {
+      font-family: "Fira Code", monospace;
+      background-color: #0a0e14;
+      color: #00ff41;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    #terminal {
+      height: 100vh;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #output {
+      flex: 1;
+      overflow-y: auto;
+      margin-bottom: 10px;
+    }
+
+    .line {
+      margin: 5px 0;
+      line-height: 1.6;
+    }
+
+    .prompt {
+      color: #00ff41;
+      font-weight: bold;
+    }
+
+    .command {
+      color: #00bcd4;
+    }
+
+    .error {
+      color: #ff6b6b;
+    }
+
+    .header {
+      color: #ffcc00;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    .link {
+      color: #00bcd4;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    .link:hover {
+      color: #00ff41;
+    }
+
+    #input-line {
+      display: flex;
+      align-items: center;
+    }
+
+    #input-prompt {
+      color: #00ff41;
+      font-weight: bold;
+      margin-right: 8px;
+      white-space: nowrap;
+    }
+
+    #command-input {
+      flex: 1;
+      background: none;
+      border: none;
+      color: #00bcd4;
+      font-family: "Fira Code", monospace;
+      font-size: 16px;
+      outline: none;
+      caret-color: #00ff41;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 18px;
+      background-color: #00ff41;
+      animation: blink 1s infinite;
+      margin-left: 2px;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    .ascii-art {
+      color: #00ff41;
+      font-size: 12px;
+      line-height: 1.2;
+      white-space: pre;
+      margin: 10px 0;
+    }
+
+    .tech-tag {
+      display: inline-block;
+      background-color: rgba(0, 255, 65, 0.1);
+      border: 1px solid #00ff41;
+      padding: 2px 8px;
+      margin: 2px;
+      border-radius: 3px;
+      font-size: 13px;
+    }
+
+    .project-item {
+      margin: 8px 0;
+      padding-left: 15px;
+    }
+
+    #terminal::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    #terminal::-webkit-scrollbar-track {
+      background: #0a0e14;
+    }
+
+    #terminal::-webkit-scrollbar-thumb {
+      background: #00ff41;
+      border-radius: 4px;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        font-size: 14px;
+      }
+      #terminal {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="terminal">
+    <div id="output"></div>
+    <div id="input-line">
+      <span id="input-prompt">tobi@portfolio:~$</span>
+      <input type="text" id="command-input" autofocus autocomplete="off" />
+    </div>
+  </div>
+
+  <script>
+    const output = document.getElementById('output');
+    const input = document.getElementById('command-input');
+    const commandHistory = [];
+    let historyIndex = -1;
+
+    const asciiLogo = `
+ ████████╗ ██████╗ ██████╗ ██╗
+ ╚══██╔══╝██╔═══██╗██╔══██╗██║
+    ██║   ██║   ██║██████╔╝██║
+    ██║   ██║   ██║██╔══██╗██║
+    ██║   ╚██████╔╝██████╔╝██║
+    ╚═╝    ╚═════╝ ╚═════╝ ╚═╝
+`;
+
+    const commands = {
+      help: () => {
+        return `
+<span class="header">Available Commands:</span>
+  <span class="command">about</span>      - Learn about me
+  <span class="command">skills</span>     - View my tech stack
+  <span class="command">projects</span>   - Browse my projects
+  <span class="command">contact</span>    - Get in touch
+  <span class="command">resume</span>     - Download my resume
+  <span class="command">github</span>     - Open my GitHub profile
+  <span class="command">linkedin</span>   - Open my LinkedIn profile
+  <span class="command">clear</span>      - Clear terminal
+  <span class="command">help</span>       - Show this help message
+`;
+      },
+
+      about: () => {
+        return `
+<span class="header">$ whoami</span>
+Name: Tobi Ajetomobi
+Role: Cloud & Platform Engineer
+
+I'm a Cloud & Platform Engineer focused on automation, reliability, and scalable infrastructure.
+I specialize in Kubernetes, CI/CD pipelines, and cloud-native DevOps tooling.
+
+<span style="color: #ffcc00;">⚡ Passion:</span> Building robust, automated infrastructure
+<span style="color: #ffcc00;">🎯 Focus:</span> Kubernetes, DevOps, Cloud Architecture
+<span style="color: #ffcc00;">🚀 Mission:</span> Making deployments seamless and infrastructure reliable
+`;
+      },
+
+      skills: () => {
+        const skills = [
+          'Kubernetes', 'Docker', 'Jenkins', 'Terraform', 'Ansible',
+          'AWS', 'Python', 'Bash', 'Prometheus', 'Grafana',
+          'PostgreSQL', 'MySQL', 'Git', 'CI/CD', 'Linux'
+        ];
+        const tags = skills.map(s => `<span class="tech-tag">${s}</span>`).join('');
+        return `
+<span class="header">$ cat tech_stack.txt</span>
+${tags}
+
+<span style="color: #8b949e; font-style: italic;">// Constantly learning and expanding my toolkit</span>
+`;
+      },
+
+      projects: () => {
+        return `
+<span class="header">$ ls -la ~/projects</span>
+
+<span class="project-item">📦 <span class="link" onclick="window.open('https://github.com/Tobi-Ajet/Website-Kubernetes-Operator', '_blank')">Website Kubernetes Operator</span></span>
+   A Go-based Kubernetes Operator that automates website deployment 
+   using NGINX and Custom Resources.
+   
+<span class="project-item">🤖 <span class="link" onclick="window.open('https://github.com/Tobiajet/InMoovIt', '_blank')">InMoovIt</span></span>
+   Robotics project for creating and controlling humanoid robots.
+   
+<span class="project-item">📝 <span class="link" onclick="window.open('https://tobiajet.github.io/HTML-Form-with-JSON/', '_blank')">HTML Form with JSON</span></span>
+   Dynamic form handling with JSON data processing.
+   
+<span class="project-item">🐶 <span class="link" onclick="window.open('https://tobiajet.github.io/Tindog/', '_blank')">Tindog</span></span>
+   Fun landing page project showcasing frontend skills.
+
+<span style="color: #8b949e;">Type '<span class="command">github</span>' to view all repositories</span>
+`;
+      },
+
+      contact: () => {
+        return `
+<span class="header">$ cat contact.info</span>
+
+📧 Email: <span class="link" onclick="window.location.href='mailto:tobiajetomobi@gmail.com'">tobiajetomobi@gmail.com</span>
+💼 LinkedIn: <span class="link" onclick="window.open('https://www.linkedin.com/in/tobiajetomobi/', '_blank')">linkedin.com/in/tobiajetomobi</span>
+🐙 GitHub: <span class="link" onclick="window.open('https://github.com/Tobi-Ajet/', '_blank')">github.com/Tobi-Ajet</span>
+
+<span style="color: #ffcc00;">💬 Want to collaborate or talk DevOps? Let's connect!</span>
+`;
+      },
+
+      resume: () => {
+        return `
+<span style="color: #ffcc00;">📄 Resume download link would be here...</span>
+<span style="color: #8b949e;">// Add your resume PDF link to enable this feature</span>
+`;
+      },
+
+      github: () => {
+        window.open('https://github.com/Tobi-Ajet/', '_blank');
+        return `<span style="color: #ffcc00;">Opening GitHub profile...</span>`;
+      },
+
+      linkedin: () => {
+        window.open('https://www.linkedin.com/in/tobiajetomobi/', '_blank');
+        return `<span style="color: #ffcc00;">Opening LinkedIn profile...</span>`;
+      },
+
+      clear: () => {
+        output.innerHTML = '';
+        return null;
+      },
+
+      ls: () => commands.projects(),
+      whoami: () => commands.about(),
+      cat: () => commands.about(),
+    };
+
+    function printLine(content, className = '') {
+      const line = document.createElement('div');
+      line.className = `line ${className}`;
+      line.innerHTML = content;
+      output.appendChild(line);
+      scrollToBottom();
+    }
+
+    function scrollToBottom() {
+      output.scrollTop = output.scrollHeight;
+    }
+
+    function executeCommand(cmd) {
+      const trimmedCmd = cmd.trim().toLowerCase();
+      
+      if (trimmedCmd === '') return;
+
+      printLine(`<span class="prompt">tobi@portfolio:~$</span> <span class="command">${cmd}</span>`);
+
+      if (commands[trimmedCmd]) {
+        const result = commands[trimmedCmd]();
+        if (result !== null) {
+          printLine(result);
+        }
+      } else {
+        printLine(`<span class="error">Command not found: ${cmd}</span>`, 'error');
+        printLine(`Type '<span class="command">help</span>' to see available commands.`);
+      }
+
+      commandHistory.push(cmd);
+      historyIndex = commandHistory.length;
+    }
+
+    function showWelcome() {
+      printLine(`<div class="ascii-art">${asciiLogo}</div>`);
+      printLine(`<span style="color: #ffcc00;">Welcome to Tobi's Terminal Portfolio</span>`);
+      printLine(`<span style="color: #8b949e;">Cloud & Platform Engineer | DevOps Enthusiast</span>`);
+      printLine('');
+      printLine(`Type '<span class="command">help</span>' to see available commands.`);
+      printLine('');
+    }
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const cmd = input.value;
+        executeCommand(cmd);
+        input.value = '';
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (historyIndex > 0) {
+          historyIndex--;
+          input.value = commandHistory[historyIndex];
+        }
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (historyIndex < commandHistory.length - 1) {
+          historyIndex++;
+          input.value = commandHistory[historyIndex];
+        } else {
+          historyIndex = commandHistory.length;
+          input.value = '';
+        }
+      } else if (e.key === 'Tab') {
+        e.preventDefault();
+        const partial = input.value.toLowerCase();
+        const matches = Object.keys(commands).filter(cmd => cmd.startsWith(partial));
+        if (matches.length === 1) {
+          input.value = matches[0];
+        }
+      }
     });
+
+    // Keep input focused
+    document.addEventListener('click', () => input.focus());
+    
+    // Initialize
+    showWelcome();
+    input.focus();
   </script>
 </body>
 </html>
