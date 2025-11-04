@@ -1,200 +1,174 @@
-/* 🌍 Global Styles */
+/* 🧠 Base Styles */
 body {
-  color: var(--text-color, #40514e);
+  font-family: "Fira Code", monospace;
   margin: 0;
   text-align: center;
-  font-family: "Verdana", sans-serif;
-  background-color: var(--bg-color, #fffaf5);
-  scroll-behavior: smooth;
-  transition: background-color 0.5s ease, color 0.5s ease;
+  background-color: #0d1117;
+  color: #c9d1d9;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
+  color: #00ff7f;
+  margin: 20px 0;
+}
+
+span.highlight {
+  color: #00ff7f;
+}
+
+span.prompt {
+  color: #00ff7f;
+  font-weight: bold;
+}
+
+a {
+  color: #00bcd4;
+  text-decoration: none;
   transition: color 0.3s ease;
 }
 
-h1:hover,
-h2:hover,
-h3:hover {
-  color: var(--accent-color, #e1701a);
+a:hover {
+  color: #00ff7f;
 }
 
-p {
-  line-height: 1.8;
-}
-
-hr {
-  border: dotted #eaf6f6 6px;
-  border-bottom: none;
-  width: 5%;
-  margin: 80px auto;
-}
-
-/* 🌟 Top Section */
+/* 🧩 Layout */
 .top-container {
-  background-color: var(--accent-color, #f7a440);
+  background-color: #161b22;
   padding: 100px 20px;
-  color: #fff;
-}
-
-h1 {
-  margin: 50px auto 0;
-  font-size: 5rem;
-  color: #f6dcbf;
-}
-
-h2 {
-  font-size: 2.2rem;
-  color: #fff8f0;
-  font-weight: normal;
-  padding-bottom: 10px;
-}
-
-span {
-  text-decoration: underline;
-}
-
-/* 👋 Intro Section */
-.intro {
-  width: 40%;
-  margin: 40px auto;
-  color: var(--text-color, #333);
+  box-shadow: 0 0 20px rgba(0, 255, 127, 0.1);
 }
 
 .middle-container {
   margin: 100px 0;
 }
 
+img {
+  border-radius: 8px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #30363d;
+  width: 60%;
+  margin: 60px auto;
+}
+
 /* 🧠 Skills & Projects */
-.skill-row {
+.skill-row, .featured-project, .projects {
   width: 70%;
-  margin: 80px auto;
-  text-align: left;
-  line-height: 2;
-}
-
-.skill-img {
-  width: 25%;
-  float: left;
-  margin-right: 30px;
-}
-
-.comp-img {
-  width: 25%;
-  float: right;
-  margin-left: 30px;
+  margin: 50px auto;
+  line-height: 1.8;
 }
 
 .proj-img {
-  width: 22%;
+  width: 25%;
   margin: 10px;
-  border-radius: 8px;
+  border: 1px solid #00ff7f;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .proj-img:hover {
-  transform: scale(1.08);
-  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
+  transform: scale(1.05);
+  box-shadow: 0px 4px 20px rgba(0, 255, 127, 0.3);
 }
 
 /* ✨ Buttons */
 .btn {
-  border-radius: 8px;
-  color: #ffffff;
-  font-family: Verdana, sans-serif;
-  font-size: 16px;
-  padding: 15px 25px;
-  background-color: var(--btn-bg, #e1701a);
-  box-shadow: 1px 1px 20px 0 #000000;
-  text-shadow: 0 1px 5px #000000;
-  border: none;
-  text-decoration: none;
   display: inline-block;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  background-color: #00ff7f;
+  color: #0d1117;
+  font-weight: 600;
+  padding: 12px 25px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .btn:hover {
-  background-color: var(--accent-color, #f7a440);
+  background-color: #00bcd4;
   transform: scale(1.05);
 }
 
 /* 📫 Footer */
 .bottom-container {
-  background-color: var(--accent-color, #f7a440);
-  padding: 50px 0 20px;
-  color: #fff;
+  background-color: #161b22;
+  padding: 40px 0;
 }
 
 .footer-link {
-  font-family: Verdana, sans-serif;
-  margin: 10px 20px;
-  text-decoration: none;
-  color: #fffaf5;
-  transition: color 0.3s ease, transform 0.2s ease;
+  margin: 0 15px;
+  color: #00ff7f;
+  font-size: 1.4rem;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .footer-link:hover {
-  color: #eaf6f6;
-  transform: translateY(-2px);
+  color: #00bcd4;
+  transform: translateY(-3px);
 }
 
 .copyright {
-  color: #eaf6f6;
+  color: #8b949e;
   font-size: 0.8rem;
-  padding: 20px 0;
+  margin-top: 15px;
 }
 
-/* 📱 Responsive */
-@media (max-width: 768px) {
-  .intro {
-    width: 80%;
-  }
-
-  .skill-row {
-    width: 90%;
-    text-align: center;
-  }
-
-  .skill-img,
-  .comp-img {
-    float: none;
-    display: block;
-    margin: 20px auto;
-    width: 50%;
-  }
-
-  .proj-img {
-    width: 45%;
-  }
-}
-
-/* 🌗 Theme Toggle Button */
+/* 🌗 Theme Toggle */
 #theme-toggle {
   position: fixed;
   top: 20px;
   right: 25px;
   background: none;
-  border: none;
-  font-size: 1.8rem;
+  border: 1px solid #00ff7f;
+  border-radius: 50%;
+  font-size: 1.4rem;
   cursor: pointer;
-  color: var(--toggle-color, #fffaf5);
+  color: #00ff7f;
+  padding: 8px;
   z-index: 1000;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 #theme-toggle:hover {
   transform: rotate(20deg);
+  background-color: #00ff7f;
+  color: #0d1117;
 }
 
-/* 🌙 Dark Mode */
-body.dark-mode {
-  --bg-color: #121212;
-  --text-color: #e0e0e0;
-  --accent-color: #e1701a;
-  --btn-bg: #e1701a;
-  --toggle-color: #ffd700;
+/* 🌞 Light Mode */
+body.light-mode {
+  background-color: #f6f8fa;
+  color: #24292f;
+}
+
+body.light-mode h1, body.light-mode h2, body.light-mode h3 {
+  color: #0a7d3d;
+}
+
+body.light-mode .top-container,
+body.light-mode .bottom-container {
+  background-color: #eaf0ec;
+}
+
+body.light-mode .proj-img {
+  border-color: #0a7d3d;
+}
+
+body.light-mode .btn {
+  background-color: #0a7d3d;
+  color: white;
+}
+
+body.light-mode .btn:hover {
+  background-color: #007a5e;
+}
+
+body.light-mode #theme-toggle {
+  color: #0a7d3d;
+  border-color: #0a7d3d;
+}
+
+body.light-mode #theme-toggle:hover {
+  background-color: #0a7d3d;
+  color: white;
 }
