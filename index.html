@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>tobi@terminal:~$ Portfolio</title>
-  <link rel="icon" href="images/favicon.ico" />
+  <link rel="icon" href="images/favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     * {
@@ -372,7 +372,7 @@
   <span class="command">github</span>     - Open my GitHub profile
   <span class="command">linkedin</span>   - Open my LinkedIn profile
   <span class="command">clear</span>      - Clear terminal
-  <span class="command">help</span>       - Show this menu (because we all forget commands)
+  <span class="command">help</span>       - Show this help message
 `;
       },
 
@@ -393,9 +393,10 @@ I specialize in Kubernetes, CI/CD pipelines, and cloud-native DevOps tooling.
 
       skills: () => {
         const skills = [
-          'Kubernetes', 'Docker', 'Jenkins', 'Terraform', 'Ansible',
-          'AWS', 'Python', 'Bash', 'Prometheus', 'Grafana',
-          'PostgreSQL', 'MySQL', 'Git', 'CI/CD', 'Linux'
+          'Kubernetes', 'Docker', 'Helm', 'Terraform', 'Ansible', 'AWS', 'Azure', 'GCP',
+          'Go', 'Python', 'Bash', 'Jenkins', 'GitHub Actions', 'ArgoCD', 'Git',
+          'Prometheus', 'Grafana', 'ELK Stack', 'Vault', 'PostgreSQL', 'MySQL', 'Redis',
+          'Linux', 'NGINX', 'Service Mesh', 'Infrastructure as Code'
         ];
         const tags = skills.map(s => `<span class="tech-tag">${s}</span>`).join('');
         return `
@@ -441,8 +442,8 @@ ${tags}
 
       resume: () => {
         return `
-<span style="color: var(--accent);">https://www.linkedin.com/in/tobiajetomobi/</span>
-<span style="color: var(--muted);">Please send me a message on LinkedIn/span>
+<span style="color: var(--accent);">https://www.linkedin.com/in/tobiajetomobi/'</span>
+<span style="color: var(--muted);">// Send me a message on LinkedIn, please</span>
 `;
       },
 
@@ -459,6 +460,37 @@ ${tags}
       clear: () => {
         output.innerHTML = '';
         return null;
+      },
+
+      guess: (args) => {
+        const answer = args ? args.toLowerCase().trim() : '';
+        const correctAnswers = ['kubernetes', 'k8s'];
+        
+        if (!answer) {
+          return `<span class="error">Usage: guess [technology-name]</span>`;
+        }
+        
+        if (correctAnswers.includes(answer)) {
+          return `
+<span style="color: var(--primary);">🎉 ██████╗  ██████╗ ██████╗ ██████╗ ███████╗ ██████╗████████╗██╗</span>
+<span style="color: var(--primary);">   ██╔════╝ ██╔═══██╗██╔══██╗██╔══██╗██╔════╝██╔════╝╚══██╔══╝██║</span>
+<span style="color: var(--primary);">   ██║      ██║   ██║██████╔╝██████╔╝█████╗  ██║        ██║   ██║</span>
+<span style="color: var(--primary);">   ██║      ██║   ██║██╔══██╗██╔══██╗██╔══╝  ██║        ██║   ╚═╝</span>
+<span style="color: var(--primary);">   ╚██████╗ ╚██████╔╝██║  ██║██║  ██║███████╗╚██████╗   ██║   ██╗</span>
+<span style="color: var(--primary);">    ╚═════╝  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝ ╚═════╝   ╚═╝   ╚═╝</span>
+
+Yes! It's Kubernetes! 🚀
+I deploy ML models on K8s clusters with custom operators, HPA, and GPU scheduling.
+
+<span style="color: var(--muted);">Type '<span class="command">mlops</span>' to learn more about my ML deployment experience</span>
+`;
+        } else {
+          return `
+<span style="color: var(--error);">❌ Not quite... "${answer}" isn't the answer!</span>
+
+<span style="color: var(--muted);">Try again! Type <span class="command">ai-hint</span> for another clue or <span class="command">ai-game</span> to restart.</span>
+`;
+        }
       },
 
       ls: () => commands.projects(),
@@ -479,19 +511,25 @@ ${tags}
     }
 
     function executeCommand(cmd) {
-      const trimmedCmd = cmd.trim().toLowerCase();
+      const trimmedCmd = cmd.trim();
       
       if (trimmedCmd === '') return;
 
       printLine(`<span class="prompt">tobi@portfolio:~$</span> <span class="command">${cmd}</span>`);
 
-      if (commands[trimmedCmd]) {
-        const result = commands[trimmedCmd]();
+      // Handle commands with arguments (like 'guess kubernetes')
+      const [mainCmd, ...args] = trimmedCmd.toLowerCase().split(' ');
+      const argsString = args.join(' ');
+
+      if (commands[mainCmd]) {
+        const result = typeof commands[mainCmd] === 'function' 
+          ? commands[mainCmd](argsString) 
+          : commands[mainCmd];
         if (result !== null) {
           printLine(result);
         }
       } else {
-        printLine(`<span class="error">Command not found: ${cmd}</span>`, 'error');
+        printLine(`<span class="error">Command not found: ${mainCmd}</span>`, 'error');
         printLine(`Type '<span class="command">help</span>' to see available commands.`);
       }
 
@@ -560,14 +598,16 @@ ${tags}
     // Keep input focused
     document.addEventListener('click', () => input.focus());
     
-    // Load saved theme
+    // Load saved theme or default to light
     try {
       const savedTheme = localStorage.getItem('terminal-theme');
       if (savedTheme) {
         changeTheme(savedTheme);
+      } else {
+        changeTheme('light');
       }
     } catch (e) {
-      // Ignore localStorage errors
+      // Ignore localStorage errors, default is already light
     }
     
     // Initialize
