@@ -1,19 +1,24 @@
-/* 🎨 Global Styles */
+/* 🌍 Global Styles */
 body {
-  color: #40514E;
+  color: var(--text-color, #40514e);
   margin: 0;
   text-align: center;
-  font-family: 'Verdana', sans-serif;
-  background-color: #fffaf5;
+  font-family: "Verdana", sans-serif;
+  background-color: var(--bg-color, #fffaf5);
   scroll-behavior: smooth;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
   transition: color 0.3s ease;
 }
 
-h1:hover, h2:hover, h3:hover {
-  color: #e1701a;
+h1:hover,
+h2:hover,
+h3:hover {
+  color: var(--accent-color, #e1701a);
 }
 
 p {
@@ -21,7 +26,7 @@ p {
 }
 
 hr {
-  border: dotted #EAF6F6 6px;
+  border: dotted #eaf6f6 6px;
   border-bottom: none;
   width: 5%;
   margin: 80px auto;
@@ -29,8 +34,7 @@ hr {
 
 /* 🌟 Top Section */
 .top-container {
-  background-color: #f7a440;
-  position: relative;
+  background-color: var(--accent-color, #f7a440);
   padding: 100px 20px;
   color: #fff;
 }
@@ -39,7 +43,6 @@ h1 {
   margin: 50px auto 0;
   font-size: 5rem;
   color: #f6dcbf;
-  line-height: 1.2;
 }
 
 h2 {
@@ -57,7 +60,7 @@ span {
 .intro {
   width: 40%;
   margin: 40px auto;
-  color: #333;
+  color: var(--text-color, #333);
 }
 
 .middle-container {
@@ -97,19 +100,6 @@ span {
   cursor: pointer;
 }
 
-/* 🧩 Lists */
-li {
-  list-style-type: none;
-  display: inline-block;
-}
-
-/* 💬 Contact */
-.contact-message {
-  width: 50%;
-  margin: 40px auto 60px;
-  color: #333;
-}
-
 /* ✨ Buttons */
 .btn {
   border-radius: 8px;
@@ -117,26 +107,26 @@ li {
   font-family: Verdana, sans-serif;
   font-size: 16px;
   padding: 15px 25px;
-  background-color: #e1701a;
+  background-color: var(--btn-bg, #e1701a);
   box-shadow: 1px 1px 20px 0 #000000;
   text-shadow: 0 1px 5px #000000;
   border: none;
   text-decoration: none;
   display: inline-block;
   cursor: pointer;
-  text-align: center;
   transition: all 0.3s ease;
 }
 
 .btn:hover {
-  background-color: #f7a440;
+  background-color: var(--accent-color, #f7a440);
   transform: scale(1.05);
 }
 
-/* 🌍 Footer */
+/* 📫 Footer */
 .bottom-container {
-  background-color: #f7a440;
+  background-color: var(--accent-color, #f7a440);
   padding: 50px 0 20px;
+  color: #fff;
 }
 
 .footer-link {
@@ -148,19 +138,19 @@ li {
 }
 
 .footer-link:hover {
-  color: #EAF6F6;
+  color: #eaf6f6;
   transform: translateY(-2px);
 }
 
 .copyright {
-  color: #EAF6F6;
+  color: #eaf6f6;
   font-size: 0.8rem;
   padding: 20px 0;
 }
 
-/* 📱 Responsive Design */
+/* 📱 Responsive */
 @media (max-width: 768px) {
-  .intro, .contact-message {
+  .intro {
     width: 80%;
   }
 
@@ -169,7 +159,8 @@ li {
     text-align: center;
   }
 
-  .skill-img, .comp-img {
+  .skill-img,
+  .comp-img {
     float: none;
     display: block;
     margin: 20px auto;
@@ -181,34 +172,29 @@ li {
   }
 }
 
-/* 🌙 Dark Mode (auto via system preference) */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #121212;
-    color: #e0e0e0;
-  }
+/* 🌗 Theme Toggle Button */
+#theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 25px;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--toggle-color, #fffaf5);
+  z-index: 1000;
+  transition: transform 0.3s ease;
+}
 
-  .top-container {
-    background-color: #e1701a;
-  }
+#theme-toggle:hover {
+  transform: rotate(20deg);
+}
 
-  h1, h2 {
-    color: #fff8f0;
-  }
-
-  .footer-link {
-    color: #ffe4c4;
-  }
-
-  .btn {
-    background-color: #e1701a;
-  }
-
-  .btn:hover {
-    background-color: #f7a440;
-  }
-
-  hr {
-    border-color: #333;
-  }
+/* 🌙 Dark Mode */
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --accent-color: #e1701a;
+  --btn-bg: #e1701a;
+  --toggle-color: #ffd700;
 }
