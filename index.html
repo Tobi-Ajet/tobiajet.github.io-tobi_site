@@ -367,6 +367,7 @@
   <span class="command">about</span>      - Learn about me
   <span class="command">skills</span>     - View my tech stack
   <span class="command">projects</span>   - Browse my projects
+  <span class="command">mlops</span>      - Explore my ML/AI experience
   <span class="command">contact</span>    - Get in touch
   <span class="command">resume</span>     - Download my resume
   <span class="command">github</span>     - Open my GitHub profile
@@ -393,10 +394,9 @@ I specialize in Kubernetes, CI/CD pipelines, and cloud-native DevOps tooling.
 
       skills: () => {
         const skills = [
-          'Kubernetes', 'Docker', 'Helm', 'Terraform', 'Ansible', 'AWS', 'Azure', 'GCP',
-          'Go', 'Python', 'Bash', 'Jenkins', 'GitHub Actions', 'ArgoCD', 'Git',
-          'Prometheus', 'Grafana', 'ELK Stack', 'Vault', 'PostgreSQL', 'MySQL', 'Redis',
-          'Linux', 'NGINX', 'Service Mesh', 'Infrastructure as Code'
+          'Kubernetes', 'Docker', 'Jenkins', 'Terraform', 'Ansible',
+          'AWS', 'Python', 'Bash', 'Prometheus', 'Grafana',
+          'PostgreSQL', 'MySQL', 'Git', 'CI/CD', 'Linux'
         ];
         const tags = skills.map(s => `<span class="tech-tag">${s}</span>`).join('');
         return `
@@ -442,8 +442,8 @@ ${tags}
 
       resume: () => {
         return `
-<span style="color: var(--accent);">https://www.linkedin.com/in/tobiajetomobi/'</span>
-<span style="color: var(--muted);">// Send me a message on LinkedIn, please</span>
+<span style="color: var(--accent);">https://www.linkedin.com/in/tobiajetomobi/.</span>
+<span style="color: var(--muted);">// Request on LinkedIn</span>
 `;
       },
 
