@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <title>tobi@terminal:~$ Portfolio</title>
   <link rel="icon" href="images/favicon.ico" />
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
@@ -122,18 +124,6 @@
       --accent: #ffff00;
       --error: #ff0055;
       --muted: #6a6a8e;
-    }
-
-    /* Light Theme */
-    body.theme-light {
-      background-color: #f5f5f5;
-      --primary: #2e7d32;
-      --secondary: #0277bd;
-      --background: #f5f5f5;
-      --text: #1a1a1a;
-      --accent: #f57c00;
-      --error: #c62828;
-      --muted: #757575;
     }
 
     /* Dracula Theme */
@@ -284,25 +274,6 @@
       padding-left: 15px;
     }
 
-    .theme-option {
-      color: var(--text);
-      cursor: pointer;
-      padding: 3px 0;
-    }
-
-    .theme-option:hover {
-      color: var(--primary);
-    }
-
-    .theme-preview {
-      display: inline-block;
-      width: 15px;
-      height: 15px;
-      border-radius: 3px;
-      margin-right: 8px;
-      border: 1px solid var(--muted);
-    }
-
     #terminal::-webkit-scrollbar {
       width: 8px;
     }
@@ -320,8 +291,98 @@
       body {
         font-size: 14px;
       }
+      
       #terminal {
         padding: 10px;
+      }
+      
+      #theme-selector {
+        top: 10px;
+        right: 10px;
+        padding: 6px;
+        gap: 6px;
+      }
+      
+      .theme-btn {
+        width: 28px;
+        height: 28px;
+      }
+      
+      .theme-btn::after {
+        display: none; /* Hide tooltips on mobile */
+      }
+      
+      #input-prompt {
+        font-size: 14px;
+      }
+      
+      #command-input {
+        font-size: 14px;
+      }
+      
+      .ascii-art {
+        font-size: 10px;
+      }
+      
+      .tech-tag {
+        font-size: 11px;
+        padding: 1px 6px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #terminal {
+        padding: 8px;
+      }
+      
+      #theme-selector {
+        padding: 5px;
+        gap: 5px;
+      }
+      
+      .theme-btn {
+        width: 24px;
+        height: 24px;
+      }
+      
+      .line {
+        font-size: 13px;
+      }
+      
+      #input-prompt {
+        font-size: 13px;
+      }
+      
+      #command-input {
+        font-size: 13px;
+      }
+    }
+
+    /* iPad and tablet optimizations */
+    @media (min-width: 768px) and (max-width: 1024px) {
+      #terminal {
+        padding: 15px;
+      }
+      
+      body {
+        font-size: 15px;
+      }
+    }
+
+    /* Touch device optimizations */
+    @media (hover: none) and (pointer: coarse) {
+      .theme-btn {
+        width: 40px;
+        height: 40px;
+      }
+      
+      .link {
+        padding: 4px;
+        display: inline-block;
+      }
+      
+      #command-input {
+        font-size: 16px; /* Prevents zoom on iOS */
       }
     }
   </style>
@@ -350,6 +411,8 @@
     const input = document.getElementById('command-input');
     const commandHistory = [];
     let historyIndex = -1;
+    let matrixInterval = null;
+    let isAnimating = false;
 
     const asciiLogo = `
  ████████╗ ██████╗ ██████╗ ██╗
@@ -368,6 +431,9 @@
   <span class="command">skills</span>     - View my tech stack
   <span class="command">projects</span>   - Browse my projects
   <span class="command">mlops</span>      - Explore my ML/AI experience
+  <span class="command">ai-game</span>    - Play the tech guessing game
+  <span class="command">matrix</span>     - Enter the Matrix 😎
+  <span class="command">hack</span>       - Run a "hacking" simulation
   <span class="command">contact</span>    - Get in touch
   <span class="command">resume</span>     - Download my resume
   <span class="command">github</span>     - Open my GitHub profile
@@ -428,6 +494,74 @@ ${tags}
 `;
       },
 
+      mlops: () => {
+        return `
+<span class="header">$ cat ml_ops.txt</span>
+
+🤖 <span style="color: var(--accent); font-weight:bold;">MLOps & AI Infrastructure</span>
+
+Deployed ML Models in AKS, following the MLOps Process 🧠  
+
+🧩 <span style="color: var(--primary);">Key Tools:</span> 
+Kubernetes, MLflow, Argo Workflows, Airflow, Docker
+
+🚀 <span style="color: var(--primary);">Experience:</span> 
+- Deploying ML models on K8s clusters
+- Automating retraining and model rollouts via CI/CD pipelines
+- Monitoring model performance & drift using Arize AI
+- Managing reproducibility with MLflow
+
+<span style="color: var(--muted); font-style: italic;">// Type '<span class="command">projects</span>' to explore more work or '<span class="command">help</span>' for other commands</span>
+`;
+      },
+
+      'ai-game': () => {
+        return `
+<span class="header">$ python3 guess_the_tech.py</span>
+
+<span style="color: var(--accent);">🎮 DevOps Tech Guesser (AI Edition)</span>
+
+I'm thinking of a DevOps/Cloud technology...
+You have 3 tries to guess it! (Type your guess as a command)
+
+<span style="color: var(--primary);">🔍 Hints:</span>
+  1. It's a CNCF graduated project
+  2. It orchestrates containerized workloads
+  3. Greek word meaning "helmsman" or "pilot"
+
+Type your guess: <span class="command">guess [technology]</span>
+Or type: <span class="command">ai-hint</span> for another clue
+`;
+      },
+
+      'ai-hint': () => {
+        return `
+<span style="color: var(--accent);">💡 Extra Hint:</span> 
+This platform was originally developed by Google and is now the industry 
+standard for container orchestration. Think "K8s"...
+
+Type: <span class="command">guess [your answer]</span>
+`;
+      },
+
+      matrix: () => {
+        startMatrixRain();
+        return `<span style="color: var(--primary);">Entering the Matrix... Press ESC to exit</span>`;
+      },
+
+      hack: () => {
+        startHackingSimulation();
+        return null;
+      },
+
+      sudo: () => {
+        return `
+<span style="color: var(--error);">[sudo] password for tobi: </span>
+<span style="color: var(--muted);">Nice try! 😄 But you don't have sudo access here.</span>
+<span style="color: var(--accent);">Try '<span class="command">hack</span>' for something fun instead!</span>
+`;
+      },
+
       contact: () => {
         return `
 <span class="header">$ cat contact.info</span>
@@ -442,8 +576,8 @@ ${tags}
 
       resume: () => {
         return `
-<span style="color: var(--accent);">https://www.linkedin.com/in/tobiajetomobi/'.</span>
-<span style="color: var(--muted);">//Send me a message</span>
+<span style="color: var(--accent);">https://www.linkedin.com/in/tobiajetomobi/</span>
+<span style="color: var(--muted);">// Request on LinkedIn</span>
 `;
       },
 
@@ -462,20 +596,7 @@ ${tags}
         return null;
       },
 
-      'ai-hint': () => {
-        return `
-<span style="color: var(--accent);">💡 Extra Hint:</span> 
-This platform was originally developed by Google and is now the industry 
-standard for container orchestration. Think "K8s"...
-
-Type: <span class="command">guess [your answer]</span>
-`;
-      },
-
-      ls: () => commands.projects(),
-      whoami: () => commands.about(),
-      cat: () => commands.about(),
-    };
+      guess: (args) => {
         const answer = args ? args.toLowerCase().trim() : '';
         const correctAnswers = ['kubernetes', 'k8s'];
         
@@ -508,7 +629,7 @@ I deploy ML models on K8s clusters with custom operators, HPA, and GPU schedulin
 
       ls: () => commands.projects(),
       whoami: () => commands.about(),
-      cat: () => commands.about(),
+      cat: () => commands.about()
     };
 
     function printLine(content, className = '') {
@@ -523,10 +644,116 @@ I deploy ML models on K8s clusters with custom operators, HPA, and GPU schedulin
       output.scrollTop = output.scrollHeight;
     }
 
+    // Matrix rain animation
+    function startMatrixRain() {
+      if (isAnimating) return;
+      isAnimating = true;
+      
+      const matrixChars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+      const columns = Math.floor(window.innerWidth / 20);
+      let drops = Array(columns).fill(0);
+      
+      const canvas = document.createElement('canvas');
+      canvas.style.position = 'fixed';
+      canvas.style.top = '0';
+      canvas.style.left = '0';
+      canvas.style.width = '100%';
+      canvas.style.height = '100%';
+      canvas.style.zIndex = '999';
+      canvas.style.pointerEvents = 'none';
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      document.body.appendChild(canvas);
+      
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      matrixInterval = setInterval(() => {
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.fillStyle = getComputedStyle(document.body).getPropertyValue('--primary');
+        ctx.font = '15px monospace';
+        
+        for (let i = 0; i < drops.length; i++) {
+          const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+          ctx.fillText(char, i * 20, drops[i] * 20);
+          
+          if (drops[i] * 20 > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }, 50);
+      
+      const stopMatrix = (e) => {
+        if (e.key === 'Escape') {
+          clearInterval(matrixInterval);
+          document.body.removeChild(canvas);
+          document.removeEventListener('keydown', stopMatrix);
+          isAnimating = false;
+          printLine(`<span style="color: var(--accent);">Exited the Matrix.</span>`);
+        }
+      };
+      
+      document.addEventListener('keydown', stopMatrix);
+    }
+
+    // Hacking simulation
+    async function startHackingSimulation() {
+      if (isAnimating) return;
+      isAnimating = true;
+      input.disabled = true;
+      
+      const hackLines = [
+        'Initializing breach protocol...',
+        'Connecting to remote server 192.168.1.1...',
+        '[████████████░░░░░░░░] 60%',
+        'Bypassing firewall...',
+        'Firewall bypassed successfully ✓',
+        '[████████████████░░░░] 80%',
+        'Extracting data...',
+        'Located: /etc/secrets/portfolio_data.txt',
+        '[████████████████████] 100%',
+        '<span style="color: var(--primary);">ACCESS GRANTED ✓</span>',
+        '',
+        '<span style="color: var(--accent);">Just kidding! 😄</span>',
+        '<span style="color: var(--muted);">This is just a fun simulation. Want to actually see my work?</span>',
+        '<span style="color: var(--muted);">Try: <span class="command">projects</span> or <span class="command">github</span></span>'
+      ];
+      
+      for (const line of hackLines) {
+        await sleep(Math.random() * 300 + 200);
+        printLine(line);
+      }
+      
+      input.disabled = false;
+      input.focus();
+      isAnimating = false;
+    }
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    // Typing animation for welcome message
+    async function typeText(text, className = '') {
+      const line = document.createElement('div');
+      line.className = `line ${className}`;
+      output.appendChild(line);
+      
+      for (let i = 0; i < text.length; i++) {
+        line.innerHTML = text.substring(0, i + 1);
+        await sleep(20);
+        scrollToBottom();
+      }
+    }
+
     function executeCommand(cmd) {
       const trimmedCmd = cmd.trim();
       
-      if (trimmedCmd === '') return;
+      if (trimmedCmd === '' || isAnimating) return;
 
       printLine(`<span class="prompt">tobi@portfolio:~$</span> <span class="command">${cmd}</span>`);
 
@@ -575,11 +802,13 @@ I deploy ML models on K8s clusters with custom operators, HPA, and GPU schedulin
       printLine(`<span style="color: var(--muted);">Cloud & Platform Engineer | DevOps Enthusiast</span>`);
       printLine('');
       printLine(`Type '<span class="command">help</span>' to see available commands.`);
+      printLine(`<span style="color: var(--muted); font-style: italic;">💡 Try typing '<span class="command">matrix</span>' or '<span class="command">hack</span>' for something cool!</span>`);
       printLine('');
     }
 
     input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
+        e.preventDefault(); // Prevent form submission on mobile
         const cmd = input.value;
         executeCommand(cmd);
         input.value = '';
@@ -608,8 +837,23 @@ I deploy ML models on K8s clusters with custom operators, HPA, and GPU schedulin
       }
     });
 
-    // Keep input focused
-    document.addEventListener('click', () => input.focus());
+    // Keep input focused (with mobile-friendly approach)
+    document.addEventListener('click', (e) => {
+      // Don't refocus if clicking on a link
+      if (e.target.tagName !== 'A' && !e.target.classList.contains('link')) {
+        input.focus();
+      }
+    });
+    
+    // Prevent zoom on double tap for iOS
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', (e) => {
+      const now = Date.now();
+      if (now - lastTouchEnd <= 300) {
+        e.preventDefault();
+      }
+      lastTouchEnd = now;
+    }, false);
     
     // Load saved theme or default to light
     try {
