@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>tobi@terminal:~$ Portfolio</title>
-  <link rel="icon" href="images/favicon.ico" />
+  <link rel="icon" href="images/favicon.png" />
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     * {
@@ -386,9 +386,9 @@ Role: Cloud & Platform Engineer
 I'm a Cloud & Platform Engineer focused on automation, reliability, and scalable infrastructure.
 I specialize in Kubernetes, CI/CD pipelines, and cloud-native DevOps tooling.
 
-<span style="color: #ffcc00;">⚡ Passion:</span> Building robust, automated infrastructure
-<span style="color: #ffcc00;">🎯 Focus:</span> Kubernetes, DevOps, Cloud Architecture
-<span style="color: #ffcc00;">🚀 Mission:</span> Making deployments seamless and infrastructure reliable
+<span style="color: var(--accent);">⚡ Passion:</span> Building robust, automated infrastructure
+<span style="color: var(--accent);">🎯 Focus:</span> Kubernetes, DevOps, Cloud Architecture
+<span style="color: var(--accent);">🚀 Mission:</span> Making deployments seamless and infrastructure reliable
 `;
       },
 
@@ -403,7 +403,7 @@ I specialize in Kubernetes, CI/CD pipelines, and cloud-native DevOps tooling.
 <span class="header">$ cat tech_stack.txt</span>
 ${tags}
 
-<span style="color: #8b949e; font-style: italic;">// Constantly learning and expanding my toolkit</span>
+<span style="color: var(--muted); font-style: italic;">// Constantly learning and expanding my toolkit</span>
 `;
       },
 
@@ -424,7 +424,7 @@ ${tags}
 <span class="project-item">🐶 <span class="link" onclick="window.open('https://tobiajet.github.io/Tindog/', '_blank')">Tindog</span></span>
    Fun landing page project showcasing frontend skills.
 
-<span style="color: #8b949e;">Type '<span class="command">github</span>' to view all repositories</span>
+<span style="color: var(--muted);">Type '<span class="command">github</span>' to view all repositories</span>
 `;
       },
 
@@ -442,8 +442,8 @@ ${tags}
 
       resume: () => {
         return `
-<span style="color: var(--accent);">https://www.linkedin.com/in/tobiajetomobi/.</span>
-<span style="color: var(--muted);">// Request on LinkedIn</span>
+<span style="color: var(--accent);">📄 Resume download link would be here...</span>
+<span style="color: var(--muted);">// Add your resume PDF link to enable this feature</span>
 `;
       },
 
@@ -462,30 +462,20 @@ ${tags}
         return null;
       },
 
-      mlops: () => {
-          return `
-      <span class="header">$ cat ml_ops.txt</span>
+      'ai-hint': () => {
+        return `
+<span style="color: var(--accent);">💡 Extra Hint:</span> 
+This platform was originally developed by Google and is now the industry 
+standard for container orchestration. Think "K8s"...
 
-      🤖 <span style="color: var(--accent); font-weight:bold;">MLOps & AI Infrastructure</span>
+Type: <span class="command">guess [your answer]</span>
+`;
+      },
 
-      Deployed ML Models in AKS, following the MLOps Process 🧠  
-
-      🧩 <span style="color: var(--primary);">Key Tools:</span> 
-      Kubernetes, MLflow, Argo Workflows, Airflow, Docker,
-
-      🚀 <span style="color: var(--primary);">Experience:</span> 
-      - Deploying ML models on K8s clusters
-      - Automating retraining and model rollouts via CI/CD pipelines
-      - Monitoring model performance & drift using Arize AI
-      - Managing reproducibility with MLflow
-
-      <span style="color: var(--muted); font-style: italic;">
-      // Type '<span class="command">projects</span>' to explore more work or '<span class="command">help</span>' for other commands
-      </span>
-      `;
-        },
-
-      guess: (args) => {
+      ls: () => commands.projects(),
+      whoami: () => commands.about(),
+      cat: () => commands.about(),
+    };
         const answer = args ? args.toLowerCase().trim() : '';
         const correctAnswers = ['kubernetes', 'k8s'];
         
